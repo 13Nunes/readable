@@ -1,12 +1,34 @@
-import React from 'react';
+// Basic
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// Screens
+import Home from './screens/Home/Home';
+import Category from './screens/Category/Category';
+import Post from './screens/Post/Post';
+import StorePost from './screens/StorePost/StorePost';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// Prepare store
+import reducers from './store/reducers';
+import middlewares from './store/middlewares';
+
+// Init Store
+const store = createStore(reducers, middlewares);
+
+// Render
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Fragment>
+        <Route path='/' exact={true} component={Home} />
+        <Route path="/:categoryName" exact={true} component={Category} />
+        <Route path="/:categoryName/:postId" exact={true} component={Post} />
+        <Route path="/:categoryName/:postId/edit" exact={true} component={StorePost} />
+        <Route path="/:categoryName/0/add" exact={true} component={StorePost} />
+      </Fragment>
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root'));
