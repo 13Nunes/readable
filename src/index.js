@@ -5,6 +5,9 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 
+// Styles
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 // Screens
 import Home from './screens/Home/Home';
 import Category from './screens/Category/Category';
