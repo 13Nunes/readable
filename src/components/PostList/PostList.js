@@ -10,9 +10,11 @@ class PostList extends Component {
       <div className="post-list">
         <div className="row">
           <div className="col-sm-8">
-            {this.props.posts.map(post => (
-              <PostItem post={post} key={post.id} />
-            ))}
+            {
+              this.props.posts.map(post => (
+                <PostItem post={post} key={post.id} />
+              ))
+            }
           </div>
           <div className="col-sm-4">
             Aside

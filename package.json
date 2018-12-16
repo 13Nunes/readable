@@ -2,7 +2,7 @@
   "name": "readable",
   "version": "0.1.0",
   "private": true,
-  "home": "https://13Nunes.github.io/readable/",
+  "homepage": "https://13nunes.github.io/readable",
   "dependencies": {
     "bootstrap": "^4.1.3",
     "gh-pages": "^2.0.1",

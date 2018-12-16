@@ -1,6 +1,7 @@
 // Basic
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 // UI
 import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
@@ -12,16 +13,13 @@ import PostList from '../../components/PostList/PostList';
 // Store
 import { handleGetPosts } from '../../store/actions/posts';
 
-
 class Home extends Component {
   // @init
   componentDidMount() {
-    this.props.dispatch(handleGetPosts());
+    this.props.dispatch(handleGetPosts(this.props.category));
   }
 
   render() {
-    console.log(this.props.posts);
-
     return (
       <div className="home">
         <Header />
@@ -41,4 +39,5 @@ function mapStateToProps({ posts }, props) {
     posts,
   };
 }
-export default connect(mapStateToProps)(Home);
+
+export default withRouter(connect(mapStateToProps)(Home));
