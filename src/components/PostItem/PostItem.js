@@ -1,20 +1,34 @@
 // Basic
 import React, { Component } from 'react';
 import moment from 'moment';
+import { connect } from 'react-redux';
 
 // Styles
 import './PostItem.css';
 
+import { FaRegUserCircle, FaRegThumbsDown, FaRegThumbsUp, FaRegComments } from 'react-icons/fa';
+
 // UI
 import {
-  Card, CardBody, CardTitle, CardSubtitle, CardText, CardFooter,
+  Card, CardBody, CardTitle, CardFooter,
   Badge,
   Button
 } from 'reactstrap';
 
+// Store
+import { handleIncreaseVotes, handleDecreaseVotes } from '../../store/actions/posts';
+
 class PostItem extends Component {
   goToContent(id) {
     console.log(id);
+  }
+
+  increaseVotes(post) {
+    this.props.dispatch(handleIncreaseVotes(post));
+  }
+
+  decreaseVotes(post) {
+    this.props.dispatch(handleDecreaseVotes(post));
   }
 
   render() {
@@ -32,15 +46,25 @@ class PostItem extends Component {
     return (
       <Card className="post-item">
         <CardBody>
-          <CardTitle>{title}</CardTitle>
-          <CardSubtitle>Author: {author}</CardSubtitle>
-          <CardText>
-            {body}<br />
-            Category: <Badge href="#" color="light">{category}</Badge>
-            {voteScore} / {commentCount} - {moment(timestamp).format('ddd, MMMM Do YYYY')}
-          </CardText>
+          <CardTitle>{title} - <Badge href="#" color="light">{category}</Badge></CardTitle>
+          <div className="toolbar">
+            <div className="publish-info">
+              <FaRegUserCircle />&nbsp;
+                {author}&nbsp;|&nbsp;{moment(timestamp).format('ddd, MMMM Do YYYY')}
+            </div>
+
+            <div className="comment-count">
+              <FaRegComments />&nbsp;&nbsp;{commentCount}
+            </div>
+          </div>
+          {body}<br />
         </CardBody>
-        <CardFooter>
+        <CardFooter className="footer">
+          <div className="vote-score-container">
+            <span onClick={() => this.decreaseVotes(this.props.post)}><FaRegThumbsDown /></span>
+            &nbsp;{voteScore}&nbsp;
+            <span onClick={() => this.increaseVotes(this.props.post)}><FaRegThumbsUp /></span>
+          </div>
           <Button size="sm" color="primary" onClick={() => this.goToContent(id)}>Read more</Button>
         </CardFooter>
       </Card>
@@ -48,4 +72,4 @@ class PostItem extends Component {
   }
 }
 
-export default PostItem;
+export default connect()(PostItem);

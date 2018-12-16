@@ -20,6 +20,8 @@ class Home extends Component {
   }
 
   render() {
+    console.log(this.props.posts);
+
     return (
       <div className="home">
         <Header />

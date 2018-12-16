@@ -14,3 +14,25 @@ export const getPosts = () =>
     .then(res => res.json())
     .then(data => data)
     .catch(error => console.log(error))
+
+
+export const increaseVotes = (postId) =>
+  fetch(`${api}/posts/${postId}`, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify({ option: 'upVote' })
+  })
+    .then(res => res.json())
+    .then(data => data)
+    .catch(error => console.log(error))
+
+
+export const decreaseVotes = (postId) =>
+  fetch(`${api}/posts/${postId}`, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify({ option: 'downVote' })
+  })
+    .then(res => res.json())
+    .then(data => data)
+    .catch(error => console.log(error))
