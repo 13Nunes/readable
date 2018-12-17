@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 // Styles
 import './PostItem.css';
 
+// Icons
 import { FaRegUserCircle, FaRegThumbsDown, FaRegThumbsUp, FaRegComments } from 'react-icons/fa';
 
 // UI
