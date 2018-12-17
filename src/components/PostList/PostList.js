@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 
 // Components
 import PostItem from '../../components/PostItem/PostItem';
+import User from '../../components/User/User';
+import Categories from '../../components/Categories/Categories'
 
 class PostList extends Component {
   render() {
@@ -15,7 +17,8 @@ class PostList extends Component {
             ))}
           </div>
           <div className="col-sm-4">
-            Aside
+            <User />
+            <Categories />
           </div>
         </div>
       </div>

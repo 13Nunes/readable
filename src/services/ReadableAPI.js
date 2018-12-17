@@ -36,3 +36,10 @@ export const decreaseVotes = (postId) =>
     .then(res => res.json())
     .then(data => data)
     .catch(error => console.log(error))
+
+
+export const getCategories = () =>
+  fetch(`${api}/categories`, { headers })
+    .then(res => res.json())
+    .then(data => data.categories)
+    .catch(error => console.log(error))

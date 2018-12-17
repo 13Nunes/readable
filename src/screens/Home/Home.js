@@ -16,7 +16,7 @@ import { handleGetPosts } from '../../store/actions/posts';
 class Home extends Component {
   // @init
   componentDidMount() {
-    this.props.dispatch(handleGetPosts(this.props.category));
+    this.props.dispatch(handleGetPosts());
   }
 
   render() {
