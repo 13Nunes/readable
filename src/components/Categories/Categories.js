@@ -25,9 +25,9 @@ class Categories extends Component {
       <div className="categories">
         <FaCube /> Categories <br /><br />
         <ListGroup>
-          <ListGroupItem tag="a" href="/" key="all">All</ListGroupItem>
+          <ListGroupItem tag="a" href="/" key="all">ALL</ListGroupItem>
           {categories.map(category => (
-            <ListGroupItem tag="a" href={category.path} key={category.path}>{category.name}</ListGroupItem>
+            <ListGroupItem tag="a" href={category.path} key={category.path}>{category.name.toUpperCase()}</ListGroupItem>
           ))}
         </ListGroup>
       </div>
