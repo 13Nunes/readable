@@ -7,7 +7,13 @@ import User from '../../components/User/User';
 import Categories from '../../components/Categories/Categories'
 
 // UI
-import { ButtonGroup, Button } from 'reactstrap';
+import { ButtonGroup, Button, InputGroup, Input } from 'reactstrap';
+
+// Assets
+import './Postlist.css';
+
+// Icons
+import { FaSearch } from 'react-icons/fa';
 
 class PostList extends Component {
   render() {
@@ -15,12 +21,19 @@ class PostList extends Component {
       <div className="post-list">
         <div className="row">
           <div className="col-sm-8">
-            <div className="toolbar text-right">
-              Sort by&nbsp;
-              <ButtonGroup size="sm">
-                <Button outline color="info">Date</Button>
-                <Button outline color="info">Votes</Button>
-              </ButtonGroup>
+            <div className="toolbar">
+              <div>
+                <InputGroup size="sm">
+                  <Input placeholder="Search..." />
+                </InputGroup>
+              </div>
+              <div>
+                Sort by&nbsp;
+                <ButtonGroup size="sm">
+                  <Button outline color="info">Date</Button>
+                  <Button outline color="info">Votes</Button>
+                </ButtonGroup>
+              </div>
             </div>
             <br />
             {this.props.posts.map(post => (
