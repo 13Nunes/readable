@@ -20,16 +20,16 @@ class PostList extends Component {
           <div className="col-sm-8">
             <div className="toolbar">
               <div>
-                <InputGroup size="sm">
-                  <Input placeholder="Search..." />
-                </InputGroup>
-              </div>
-              <div>
                 Sort by&nbsp;
                 <ButtonGroup size="sm">
                   <Button outline color="info">Date</Button>
                   <Button outline color="info">Votes</Button>
                 </ButtonGroup>
+              </div>
+              <div>
+                <InputGroup size="sm">
+                  <Input placeholder="Search..." />
+                </InputGroup>
               </div>
             </div>
             <br />
@@ -47,4 +47,4 @@ class PostList extends Component {
   }
 }
 
-export default PostList;
+export default PostList

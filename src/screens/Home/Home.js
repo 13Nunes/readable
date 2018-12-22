@@ -14,7 +14,7 @@ import PostList from '../../components/PostList/PostList';
 import { handleGetPosts } from '../../store/actions/posts';
 
 class Home extends Component {
-  // @init
+  // @hooks
   componentDidMount() {
     this.props.dispatch(handleGetPosts());
   }
