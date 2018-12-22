@@ -12,9 +12,6 @@ import { ButtonGroup, Button, InputGroup, Input } from 'reactstrap';
 // Assets
 import './Postlist.css';
 
-// Icons
-import { FaSearch } from 'react-icons/fa';
-
 class PostList extends Component {
   render() {
     return (
