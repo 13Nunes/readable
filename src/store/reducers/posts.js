@@ -5,14 +5,16 @@ export default function (state = [], action) {
     case LIST_POSTS:
       return action.posts;
     case INCREASE_VOTES:
-      state.forEach((e, i) => {
-        if (e.id === action.post.id) state[i].voteScore++
-      })
+      state.map((e, i) => {
+        if (e.id === action.post.id) e.voteScore++;
+        return e;
+      });
       return [...state];
     case DECREASE_VOTES:
-      state.forEach((e, i) => {
-        if (e.id === action.post.id) state[i].voteScore--
-      })
+      state.map((e, i) => {
+        if (e.id === action.post.id) e.voteScore++;
+        return e;
+      });
       return [...state];
     default:
       return state;
