@@ -14,27 +14,27 @@ import Categories from '../../components/Categories/Categories'
 
 class Category extends Component {
   componentDidUpdate(prevProps) {
-    console.log(prevProps.category)
-    if (this.props.category !== prevProps.category) {
-      // console.log(prevProps)
+    if (this.props.categories.loading === false) {
+
     }
   }
 
   render() {
     const { category } = this.props;
+    const categoryTitle = category.name.charAt(0).toUpperCase() + category.name.slice(1);
 
     return (
-      <div className="home">
+      <div className="category">
         <Header />
         <div className="container">
           <Breadcrumb tag="nav" listTag="div">
             <BreadcrumbItem tag="a" href="/">Home</BreadcrumbItem>
-            <BreadcrumbItem active>{category.name}</BreadcrumbItem>
+            <BreadcrumbItem active>{categoryTitle}</BreadcrumbItem>
           </Breadcrumb>
           <div className="content">
             <div className="row">
               <div className="col-sm-8">
-                <PostList />
+                <PostList category={category.name} />
               </div>
               <div className="col-sm-4">
                 <User />
@@ -51,7 +51,15 @@ class Category extends Component {
 function mapStateToProps({ categories }, props) {
   const { categoryName } = props.match.params;
   const { pathname } = props.location;
-  const category = categories.filter((e) => e.path === categoryName);
+  let category = { name: '' };
+
+  if (categories.loading === false) {
+    category = categories.list.filter((e) => e.path === categoryName);
+    category = category[0];
+    if (category === undefined) {
+      category = { name: 'Inválida' };
+    }
+  }
 
   return {
     categories,

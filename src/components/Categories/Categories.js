@@ -29,17 +29,17 @@ class Categories extends Component {
     const { categories } = this.props
 
     return (
-      <div className="categories">
-        <FaCube /> Categories <br /><br />
+      <div className="categories" >
+        <FaCube /> Categories < br /> <br />
         <ListGroup>
           <ListGroupItem tag="a" href='/' onClick={(e) => this.goToContent(e, '/')} key="all">ALL</ListGroupItem>
-          {categories.map(category => (
+          {categories.list.map(category => (
             <ListGroupItem tag="a" href={category.path} onClick={(e) => this.goToContent(e, category.path)} key={category.path}>
               {category.name.toUpperCase()}
             </ListGroupItem>
           ))}
         </ListGroup>
-      </div>
+      </div >
     );
   }
 }

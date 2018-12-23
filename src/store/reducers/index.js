@@ -8,7 +8,7 @@ import user from './user';
 
 // Combine and export
 export default combineReducers({
-    user,
-    categories,
-    posts,
+  user,
+  categories,
+  posts
 });

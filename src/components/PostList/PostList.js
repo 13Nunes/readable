@@ -68,8 +68,8 @@ class PostList extends Component {
           <div>
             Sort by&nbsp;
             <ButtonGroup size="sm">
-              <Button outline color="info" onClick={() => this.sortPostsByDate()} active={sortType === 'DATE'}>Date</Button>
-              <Button outline color="info" onClick={() => this.sortPostsByVotes()} active={sortType === 'VOTES'}>Votes</Button>
+              <Button outline color="primary" onClick={() => this.sortPostsByDate()} active={sortType === 'DATE'}>Date</Button>
+              <Button outline color="primary" onClick={() => this.sortPostsByVotes()} active={sortType === 'VOTES'}>Votes</Button>
             </ButtonGroup>&nbsp;
             {(sortOrder === 'DESC') && <FaSortAmountDown className="sort-icon sort-down" onClick={() => this.toggleSortOrder()} />}
             {(sortOrder === 'ASC') && <FaSortAmountUp className="sort-icon sort-up" onClick={() => this.toggleSortOrder()} />}
