@@ -1,4 +1,4 @@
-import { getPosts, decreaseVotes, increaseVotes } from '../../services/ReadableAPI';
+import { getPosts, getPostsByCategory, decreaseVotes, increaseVotes } from '../../services/ReadableAPI';
 export const LIST_POSTS = 'LIST_POSTS';
 export const INCREASE_VOTES = 'INCREASE_VOTES';
 export const DECREASE_VOTES = 'DECREASE_VOTES';
@@ -12,11 +12,17 @@ function getPostsAction(posts, sortType, sortOrder, searchTerm) {
     searchTerm
   };
 }
-export function handleGetPosts(sortType, sortOrder, searchTerm) {
+export function handleGetPosts(sortType, sortOrder, searchTerm, category = null) {
   return dispatch => {
-    return getPosts().then(posts => {
-      dispatch(getPostsAction(posts, sortType, sortOrder, searchTerm));
-    });
+    if (category === null || category === '') {
+      return getPosts().then(posts => {
+        dispatch(getPostsAction(posts, sortType, sortOrder, searchTerm));
+      })
+    } else {
+      return getPostsByCategory(category).then(posts => {
+        dispatch(getPostsAction(posts, sortType, sortOrder, searchTerm));
+      });
+    }
   };
 }
 //

@@ -1,6 +1,7 @@
 // Basic
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 
 // Components
 import PostItem from '../../components/PostItem/PostItem';
@@ -18,6 +19,11 @@ import { FaSortAmountDown, FaSortAmountUp } from 'react-icons/fa';
 import './Postlist.css';
 
 class PostList extends Component {
+  // @properties
+  static propTypes = {
+    category: PropTypes.string
+  }
+
   // @states
   state = {
     sortType: 'DATE',
@@ -25,10 +31,14 @@ class PostList extends Component {
     search: ''
   };
 
-  // @hooks
+  // @lifecycle
   componentDidMount() {
-    const { sortType, sortOrder, search } = this.state;
-    this.props.dispatch(handleGetPosts(sortType, sortOrder, search));
+    this.loadPostList();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.category !== prevProps.category) {
+      this.loadPostList();
+    }
   }
 
   // @methods
@@ -58,9 +68,15 @@ class PostList extends Component {
     });
     this.props.dispatch(handleGetPosts(this.state.sortType, this.state.sortOrder, search));
   }
+  loadPostList() {
+    const { sortType, sortOrder, search } = this.state;
+    const { category } = this.props;
+    this.props.dispatch(handleGetPosts(sortType, sortOrder, search, category));
+  }
 
   render() {
     const { sortType, sortOrder, search } = this.state;
+    const { posts } = this.props;
 
     return (
       <div className="post-list">
@@ -81,11 +97,15 @@ class PostList extends Component {
           </div>
         </div >
         <br />
-        {
-          this.props.posts.map(post => (
-            <PostItem post={post} key={post.id} />
-          ))
-        }
+        {posts.loading === true && (
+          <div>Waiting...</div>
+        )}
+        {(posts.loading === false && posts.list.length === 0) && (
+          <div>Sorry. No posts in this category yet</div>
+        )}
+        {posts.loading === false && posts.list.map(post => (
+          <PostItem post={post} key={post.id} />
+        ))}
       </div >
     );
   }

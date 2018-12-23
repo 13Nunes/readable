@@ -13,12 +13,6 @@ import User from '../../components/User/User';
 import Categories from '../../components/Categories/Categories'
 
 class Category extends Component {
-  componentDidUpdate(prevProps) {
-    if (this.props.categories.loading === false) {
-
-    }
-  }
-
   render() {
     const { category } = this.props;
     const categoryTitle = category.name.charAt(0).toUpperCase() + category.name.slice(1);
