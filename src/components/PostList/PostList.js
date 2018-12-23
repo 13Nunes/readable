@@ -22,12 +22,13 @@ class PostList extends Component {
   state = {
     sortType: 'DATE',
     sortOrder: 'DESC',
+    search: ''
   };
 
   // @hooks
   componentDidMount() {
-    const { sortType, sortOrder } = this.state;
-    this.props.dispatch(handleGetPosts(sortType, sortOrder));
+    const { sortType, sortOrder, search } = this.state;
+    this.props.dispatch(handleGetPosts(sortType, sortOrder, search));
   }
 
   // @methods
@@ -35,26 +36,31 @@ class PostList extends Component {
     this.setState({
       sortType: 'DATE'
     });
-    this.props.dispatch(handleGetPosts('DATE', this.state.sortOrder));
+    this.props.dispatch(handleGetPosts('DATE', this.state.sortOrder, this.state.search));
   }
   sortPostsByVotes() {
     this.setState({
       sortType: 'VOTES'
     });
-    console.log(this.state.sortType)
-    this.props.dispatch(handleGetPosts('VOTES', this.state.sortOrder));
+    this.props.dispatch(handleGetPosts('VOTES', this.state.sortOrder, this.state.search));
   }
   toggleSortOrder() {
     const sortOrder = this.state.sortOrder === 'ASC' ? 'DESC' : 'ASC';
-
     this.setState({
       sortOrder
     });
-    this.props.dispatch(handleGetPosts(this.state.sortType, sortOrder));
+    this.props.dispatch(handleGetPosts(this.state.sortType, sortOrder, this.state.search));
+  }
+  handleSearchChange(event) {
+    const search = event.target.value;
+    this.setState({
+      search
+    });
+    this.props.dispatch(handleGetPosts(this.state.sortType, this.state.sortOrder, search));
   }
 
   render() {
-    const { sortType, sortOrder } = this.state;
+    const { sortType, sortOrder, search } = this.state;
 
     return (
       <div className="post-list">
@@ -70,7 +76,7 @@ class PostList extends Component {
           </div>
           <div>
             <InputGroup size="sm">
-              <Input placeholder="Search..." />
+              <Input placeholder="Search..." value={search} onChange={this.handleSearchChange.bind(this)} />
             </InputGroup>
           </div>
         </div >

@@ -1,5 +1,6 @@
 // Basic
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
 
@@ -20,8 +21,8 @@ import {
 import { handleIncreaseVotes, handleDecreaseVotes } from '../../store/actions/posts';
 
 class PostItem extends Component {
-  goToContent(id) {
-    console.log(id);
+  goToContent(category, id) {
+    this.props.history.push(`/${category}/${id}`);
   }
 
   increaseVotes(post) {
@@ -66,11 +67,11 @@ class PostItem extends Component {
             &nbsp;{voteScore}&nbsp;
             <span onClick={() => this.increaseVotes(this.props.post)}><FaRegThumbsUp /></span>
           </div>
-          <Button size="sm" color="primary" onClick={() => this.goToContent(id)}>Read more</Button>
+          <Button size="sm" color="primary" onClick={() => this.goToContent(category, id)}>Read more</Button>
         </CardFooter>
       </Card>
     );
   }
 }
 
-export default connect()(PostItem);
+export default withRouter(connect()(PostItem));

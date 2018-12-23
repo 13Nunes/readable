@@ -3,18 +3,19 @@ export const LIST_POSTS = 'LIST_POSTS';
 export const INCREASE_VOTES = 'INCREASE_VOTES';
 export const DECREASE_VOTES = 'DECREASE_VOTES';
 
-function getPostsAction(posts, sortType, sortOrder) {
+function getPostsAction(posts, sortType, sortOrder, searchTerm) {
     return {
         type: LIST_POSTS,
         posts,
         sortType,
-        sortOrder
+        sortOrder,
+        searchTerm
     };
 }
-export function handleGetPosts(sortType, sortOrder) {
+export function handleGetPosts(sortType, sortOrder, searchTerm) {
     return dispatch => {
         return getPosts().then(posts => {
-            dispatch(getPostsAction(posts, sortType, sortOrder));
+            dispatch(getPostsAction(posts, sortType, sortOrder, searchTerm));
         });
     };
 }
