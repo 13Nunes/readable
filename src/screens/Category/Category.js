@@ -14,7 +14,7 @@ import Categories from '../../components/Categories/Categories'
 
 class Category extends Component {
   render() {
-    const { category } = this.props;
+    const { category, validCategory } = this.props;
     const categoryTitle = category.name.charAt(0).toUpperCase() + category.name.slice(1);
 
     return (
@@ -28,11 +28,11 @@ class Category extends Component {
           <div className="content">
             <div className="row">
               <div className="col-sm-8">
-                <PostList category={category.name} />
+                {validCategory === true ? <PostList category={category.name} /> : <div>Invalid category</div>}
               </div>
               <div className="col-sm-4">
                 <User />
-                <Categories />
+                <Categories selected={category.name} />
               </div>
             </div>
           </div>
@@ -46,12 +46,14 @@ function mapStateToProps({ categories }, props) {
   const { categoryName } = props.match.params;
   const { pathname } = props.location;
   let category = { name: '' };
+  let validCategory = true;
 
   if (categories.loading === false) {
     category = categories.list.filter((e) => e.path === categoryName);
     category = category[0];
     if (category === undefined) {
-      category = { name: 'Inválida' };
+      category = { name: 'Invalid' };
+      validCategory = false;
     }
   }
 
@@ -59,6 +61,7 @@ function mapStateToProps({ categories }, props) {
     categories,
     category,
     pathname,
+    validCategory
   };
 }
 export default withRouter(connect(mapStateToProps)(Category));

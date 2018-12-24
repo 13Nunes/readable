@@ -43,30 +43,38 @@ class PostList extends Component {
 
   // @methods
   sortPostsByDate() {
+    const { sortOrder, search } = this.state;
+    const { category } = this.props;
     this.setState({
       sortType: 'DATE'
     });
-    this.props.dispatch(handleGetPosts('DATE', this.state.sortOrder, this.state.search));
+    this.props.dispatch(handleGetPosts('DATE', sortOrder, search, category));
   }
   sortPostsByVotes() {
+    const { sortOrder, search } = this.state;
+    const { category } = this.props;
     this.setState({
       sortType: 'VOTES'
     });
-    this.props.dispatch(handleGetPosts('VOTES', this.state.sortOrder, this.state.search));
+    this.props.dispatch(handleGetPosts('VOTES', sortOrder, search, category));
   }
   toggleSortOrder() {
+    const { sortType, search } = this.state;
+    const { category } = this.props;
     const sortOrder = this.state.sortOrder === 'ASC' ? 'DESC' : 'ASC';
     this.setState({
       sortOrder
     });
-    this.props.dispatch(handleGetPosts(this.state.sortType, sortOrder, this.state.search));
+    this.props.dispatch(handleGetPosts(sortType, sortOrder, search, category));
   }
   handleSearchChange(event) {
+    const { sortType, sortOrder } = this.state;
+    const { category } = this.props;
     const search = event.target.value;
     this.setState({
       search
     });
-    this.props.dispatch(handleGetPosts(this.state.sortType, this.state.sortOrder, search));
+    this.props.dispatch(handleGetPosts(sortType, sortOrder, search, category));
   }
   loadPostList() {
     const { sortType, sortOrder, search } = this.state;

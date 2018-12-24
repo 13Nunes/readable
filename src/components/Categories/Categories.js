@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 
 // UI
 import { ListGroup, ListGroupItem } from 'reactstrap';
@@ -13,6 +14,11 @@ import { FaCube } from 'react-icons/fa';
 import { handleGetCategories } from '../../store/actions/categories';
 
 class Categories extends Component {
+  // @properties
+  static propTypes = {
+    selected: PropTypes.string
+  }
+
   // @hook
   componentDidMount() {
     // Get categories
@@ -26,15 +32,15 @@ class Categories extends Component {
   }
 
   render() {
-    const { categories } = this.props
+    const { categories, selected } = this.props
 
     return (
       <div className="categories" >
         <FaCube /> Categories < br /> <br />
         <ListGroup>
-          <ListGroupItem tag="a" href='/' onClick={(e) => this.goToContent(e, '/')} key="all">ALL</ListGroupItem>
+          <ListGroupItem tag="a" href='/' active={selected === undefined} onClick={(e) => this.goToContent(e, '/')} key="all">ALL</ListGroupItem>
           {categories.list.map(category => (
-            <ListGroupItem tag="a" href={category.path} onClick={(e) => this.goToContent(e, category.path)} key={category.path}>
+            <ListGroupItem tag="a" active={selected === category.path} href={category.path} onClick={(e) => this.goToContent(e, category.path)} key={category.path}>
               {category.name.toUpperCase()}
             </ListGroupItem>
           ))}
