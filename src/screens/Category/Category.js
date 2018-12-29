@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 // UI
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button } from 'reactstrap';
+
+// Icons
+import { FaPlusSquare } from 'react-icons/fa';
 
 // Components
 import Header from '../../components/Header/Header';
@@ -13,6 +16,12 @@ import User from '../../components/User/User';
 import Categories from '../../components/Categories/Categories'
 
 class Category extends Component {
+  // @methods
+  goToNewPost(event) {
+    event.preventDefault();
+    this.props.history.push('/new-post');
+  }
+
   render() {
     const { category, validCategory } = this.props;
     const categoryTitle = category.name.charAt(0).toUpperCase() + category.name.slice(1);
@@ -33,6 +42,8 @@ class Category extends Component {
               <div className="col-sm-4">
                 <User />
                 <Categories selected={category.name} />
+                <hr />
+                <Button color="warning" size="sm" block onClick={(e) => this.goToNewPost(e)}><FaPlusSquare /> New Post</Button>
               </div>
             </div>
           </div>

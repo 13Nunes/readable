@@ -1,7 +1,8 @@
-import { getPosts, getPostsByCategory, decreaseVotes, increaseVotes } from '../../services/ReadableAPI';
+import { getPosts, getPostsByCategory, decreaseVotes, increaseVotes, getPost } from '../../services/ReadableAPI';
 export const LIST_POSTS = 'LIST_POSTS';
 export const INCREASE_VOTES = 'INCREASE_VOTES';
 export const DECREASE_VOTES = 'DECREASE_VOTES';
+export const GET_POST = 'GET_POST';
 
 function getPostsAction(posts, sortType, sortOrder, searchTerm) {
   return {
@@ -50,6 +51,20 @@ export function handleDecreaseVotes(post) {
   return dispatch => {
     return decreaseVotes(post.id).then(post => {
       dispatch(decreaseVotesAction(post));
+    });
+  };
+}
+//
+function getPostAction(post) {
+  return {
+    type: GET_POST,
+    post,
+  };
+}
+export function handleGetPost(postId) {
+  return dispatch => {
+    return getPost(postId).then(post => {
+      dispatch(getPostAction(post));
     });
   };
 }

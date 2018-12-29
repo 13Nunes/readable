@@ -1,9 +1,9 @@
 // Basic
-import React, { Fragment } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 // Theme
 //import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,13 +26,13 @@ const store = createStore(reducers, middlewares);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <Fragment>
+      <Switch>
         <Route path='/' exact={true} component={Home} />
+        <Route path="/new-post" component={StorePost} />
         <Route path="/:categoryName" exact={true} component={Category} />
         <Route path="/:categoryName/:postId" exact={true} component={Post} />
         <Route path="/:categoryName/:postId/edit" exact={true} component={StorePost} />
-        <Route path="/:categoryName/0/add" exact={true} component={StorePost} />
-      </Fragment>
+      </Switch>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root'));

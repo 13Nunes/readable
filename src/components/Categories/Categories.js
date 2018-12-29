@@ -19,7 +19,7 @@ class Categories extends Component {
     selected: PropTypes.string
   }
 
-  // @hook
+  // @lifecycle
   componentDidMount() {
     // Get categories
     this.props.dispatch(handleGetCategories());

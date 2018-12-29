@@ -21,6 +21,13 @@ export const getPostsByCategory = (categoryName) =>
     .then(data => data)
     .catch(error => console.log(error))
 
+export const getPost = (postId) =>
+  fetch(`${api}/posts/${postId}`, { headers })
+    .then(res => res.json())
+    .then(data => data)
+    .catch(error => console.log(error))
+
+
 export const increaseVotes = (postId) =>
   fetch(`${api}/posts/${postId}`, {
     headers,
@@ -30,7 +37,6 @@ export const increaseVotes = (postId) =>
     .then(res => res.json())
     .then(data => data)
     .catch(error => console.log(error))
-
 
 export const decreaseVotes = (postId) =>
   fetch(`${api}/posts/${postId}`, {
