@@ -1,6 +1,6 @@
 // Basic
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
 
@@ -48,7 +48,7 @@ class PostItem extends Component {
     return (
       <Card className="post-item">
         <CardBody>
-          <CardTitle>{title} - <Badge href="#" color="light">{category}</Badge></CardTitle>
+          <CardTitle><Link to={`/${category}/${id}`}>{title}</Link> - <Badge href="#" color="light">{category}</Badge></CardTitle>
           <div className="toolbar">
             <div className="publish-info">
               <FaRegUserCircle />&nbsp;

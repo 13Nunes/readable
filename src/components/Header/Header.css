@@ -17,9 +17,10 @@
   z-index: 11;
   bottom: 20%;
 }
-.header h1{
+.header h1 a{
   font-size: 2vw;
   color: #FAFAFA;
+  text-decoration: none;
 }
 
 .header p{

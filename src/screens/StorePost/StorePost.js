@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 // UI
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button } from 'reactstrap';
+
+// Icons
+import { FaHome } from 'react-icons/fa';
 
 // Components
 import Header from '../../components/Header/Header';
@@ -14,24 +17,26 @@ import Categories from '../../components/Categories/Categories'
 class StorePost extends Component {
   // @state
   state = {
-    operation: 'add',
     pageTitle: 'New Post',
-    category: null,
     postId: null
   }
 
   // @lifecycle
   componentWillMount() {
     if (this.props.match.path === '/:categoryName/:postId/edit' && Object.keys(this.props.match.params).length === 2) {
-      const category = this.props.match.params.categoryName || '';
       const postId = this.props.match.params.postId || 0;
 
       this.setState({
-        operation: 'edit',
-        category,
-        postId
+        postId,
+        pageTitle: 'Edit Post'
       });
     }
+  }
+
+  // @methods
+  goToHome(event) {
+    event.preventDefault();
+    this.props.history.push('/');
   }
 
   render() {
@@ -53,6 +58,8 @@ class StorePost extends Component {
               <div className="col-sm-4">
                 <User />
                 <Categories />
+                <hr />
+                <Button color="warning" size="sm" block onClick={(e) => this.goToHome(e)}><FaHome /> Home</Button>
               </div>
             </div>
           </div>

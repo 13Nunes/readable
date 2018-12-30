@@ -9,6 +9,9 @@ import { Breadcrumb, BreadcrumbItem, Button } from 'reactstrap';
 // Icons
 import { FaPlusSquare } from 'react-icons/fa';
 
+// Assets
+import backImage from '../../assets/images/back.gif';
+
 // Components
 import Header from '../../components/Header/Header';
 import PostList from '../../components/PostList/PostList';
@@ -37,7 +40,13 @@ class Category extends Component {
           <div className="content">
             <div className="row">
               <div className="col-sm-8">
-                {validCategory === true ? <PostList category={category.name} /> : <div>Invalid category</div>}
+                {validCategory === true ?
+                  <PostList category={category.name} /> :
+                  <div>
+                    Ooops! Invalid category <br /><br />
+                    <img src={backImage} alt="Back" />
+                  </div>
+                }
               </div>
               <div className="col-sm-4">
                 <User />
@@ -63,7 +72,7 @@ function mapStateToProps({ categories }, props) {
     category = categories.list.filter((e) => e.path === categoryName);
     category = category[0];
     if (category === undefined) {
-      category = { name: 'Invalid' };
+      category = { name: 'Oh No!' };
       validCategory = false;
     }
   }

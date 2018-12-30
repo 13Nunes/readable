@@ -54,3 +54,24 @@ export const getCategories = () =>
     .then(res => res.json())
     .then(data => data.categories)
     .catch(error => console.log(error))
+
+
+export const addPost = (postData) =>
+  fetch(`${api}/posts`, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify(postData)
+  })
+    .then(res => res.json())
+    .then(data => data)
+    .catch(error => console.log(error))
+
+export const editPost = (postData) =>
+  fetch(`${api}/posts/${postData.id}`, {
+    headers,
+    method: 'PUT',
+    body: JSON.stringify(postData)
+  })
+    .then(res => res.json())
+    .then(data => data)
+    .catch(error => console.log(error))

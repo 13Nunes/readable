@@ -16,6 +16,7 @@ import { ButtonGroup, Button, InputGroup, Input } from 'reactstrap';
 import { FaSortAmountDown, FaSortAmountUp } from 'react-icons/fa';
 
 // Assets
+import sorryImage from '../../assets/images/sorry.gif';
 import './Postlist.css';
 
 class PostList extends Component {
@@ -109,7 +110,10 @@ class PostList extends Component {
           <div>Waiting...</div>
         )}
         {(posts.loading === false && posts.list.length === 0) && (
-          <div>Sorry. No posts in this category yet</div>
+          <div>
+            Sorry. No posts in this category yet<br /><br />
+            <img src={sorryImage} alt="Sorry" />
+          </div>
         )}
         {posts.loading === false && posts.list.map(post => (
           <PostItem post={post} key={post.id} />

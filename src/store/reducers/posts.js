@@ -28,9 +28,12 @@ export default function (state = initialState, action) {
 
     case INCREASE_VOTES:
     case DECREASE_VOTES:
-      return state.map((e, i) => {
-        return e.id === action.post.id ? action.post : e;
-      });
+      return {
+        loading: false,
+        list: state.list.map((e, i) => {
+          return e.id === action.post.id ? action.post : e;
+        })
+      }
     default:
       return state;
   }

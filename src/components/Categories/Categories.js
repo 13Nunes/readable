@@ -40,7 +40,7 @@ class Categories extends Component {
         <ListGroup>
           <ListGroupItem tag="a" href='/' active={selected === undefined} onClick={(e) => this.goToContent(e, '/')} key="all">ALL</ListGroupItem>
           {categories.list.map(category => (
-            <ListGroupItem tag="a" active={selected === category.path} href={category.path} onClick={(e) => this.goToContent(e, category.path)} key={category.path}>
+            <ListGroupItem tag="a" active={selected === category.path} href={'/' + category.path} onClick={(e) => this.goToContent(e, '/' + category.path)} key={category.path}>
               {category.name.toUpperCase()}
             </ListGroupItem>
           ))}

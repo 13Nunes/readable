@@ -1,5 +1,6 @@
 // Basic
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 // Assets
 import banner from '../../assets/images/banner.jpg';
@@ -12,7 +13,7 @@ class Header extends Component {
         <img src={banner} alt="Banner" />
         <div className="container">
           <div className="text-box">
-            <h1>TechnoBlog</h1>
+            <h1><Link to={'/'}>TechnoBlog</Link></h1>
             <p>What's up ?</p>
           </div>
         </div>
