@@ -82,7 +82,8 @@ class Post extends Component {
                       &nbsp;{post.data.voteScore}&nbsp;
                       <span onClick={() => this.increaseVotes(post.data)}><FaRegThumbsUp /></span>
                     </div>
-                    <CommentBox />
+                    <hr />
+                    <CommentBox postId={post.data.id} />
                   </div>
                 )}
               </div>

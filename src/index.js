@@ -9,6 +9,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/themes/bootstrap.cerulean.min.css';
 
+// Styles
+import './index.css';
+
 // Screens
 import Home from './screens/Home/Home';
 import Category from './screens/Category/Category';
