@@ -67,9 +67,9 @@ class PostItem extends Component {
         </CardBody>
         <CardFooter className="footer">
           <div className="vote-score-container">
-            <span onClick={() => this.decreaseVotes(this.props.post)}><FaRegThumbsDown /></span>
+            <span className="down" onClick={() => this.decreaseVotes(this.props.post)}><FaRegThumbsDown /></span>
             &nbsp;{voteScore}&nbsp;
-            <span onClick={() => this.increaseVotes(this.props.post)}><FaRegThumbsUp /></span>
+            <span className="up" onClick={() => this.increaseVotes(this.props.post)}><FaRegThumbsUp /></span>
           </div>
           <Button size="sm" color="primary" onClick={() => this.goToContent(category, id)}>Read more</Button>
         </CardFooter>

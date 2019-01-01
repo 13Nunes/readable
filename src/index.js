@@ -17,6 +17,7 @@ import Home from './screens/Home/Home';
 import Category from './screens/Category/Category';
 import Post from './screens/Post/Post';
 import StorePost from './screens/StorePost/StorePost';
+import PageNotFound from './screens/PageNotFound/PageNotFound';
 
 // Prepare store
 import reducers from './store/reducers';
@@ -31,10 +32,12 @@ ReactDOM.render(
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route path='/' exact={true} component={Home} />
+        <Route path="/page-not-found" component={PageNotFound} />
         <Route path="/new-post" component={StorePost} />
         <Route path="/:categoryName" exact={true} component={Category} />
         <Route path="/:categoryName/:postId" exact={true} component={Post} />
         <Route path="/:categoryName/:postId/edit" exact={true} component={StorePost} />
+        <Route path="*" component={PageNotFound} />
       </Switch>
     </BrowserRouter>
   </Provider>,

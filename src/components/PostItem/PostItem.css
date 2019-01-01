@@ -13,3 +13,23 @@
     align-items: center;
     justify-content: space-between
 }
+
+.post-item .toolbar .publish-info,
+.post-item .toolbar .comment-count{
+    display: flex;
+    align-items: center;
+}
+
+.post-item.vote-score-container{
+  display: flex;
+  align-items: center;
+}
+.post-item .vote-score-container .down{
+    color: red;
+}
+.post-item .vote-score-container .up{
+    color: green;
+}
+.post-item .vote-score-container span{
+  cursor: pointer;
+}

@@ -16,7 +16,12 @@ export default function (state = initialState, action) {
     case GET_POST_COMMENTS:
       return {
         loading: false,
-        list: action.comments
+        list: action.comments.map((e, i) => {
+          return {
+            ...e,
+            [i]: e.editing = false
+          }
+        })
       }
 
     case INCREASE_COMMENT_VOTES:

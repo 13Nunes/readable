@@ -80,11 +80,15 @@ class Post extends Component {
   }
 
   render() {
-    const { post } = this.props;
+    const { post, history } = this.props;
 
     // Get current user
     let user = localStorage.getItem('user') || null;
-    user = JSON.parse(user)
+    user = JSON.parse(user);
+
+    // Safe
+    if (post.loading === false && post.data.error) history.push('/page-not-found');
+    if (post.loading === false && post.data.error) return (<div>Redirecting...</div>);
 
     return (
       <div className="store-post">
@@ -117,9 +121,9 @@ class Post extends Component {
                     <p>{post.data.body}</p>
                     <div className="actions">
                       <div className="vote-score-container">
-                        <span onClick={() => this.decreaseVotes(post.data)}><FaRegThumbsDown /></span>
+                        <span className="down" onClick={() => this.decreaseVotes(post.data)}><FaRegThumbsDown /></span>
                         &nbsp;{post.data.voteScore}&nbsp;
-                        <span onClick={() => this.increaseVotes(post.data)}><FaRegThumbsUp /></span>
+                        <span className="up" onClick={() => this.increaseVotes(post.data)}><FaRegThumbsUp /></span>
                       </div>
                       {post.data.author === user.login && (
                         <div className="buttons">
@@ -137,7 +141,7 @@ class Post extends Component {
                 <User />
                 <Categories selected={this.props.match.params.categoryName} />
                 <hr />
-                <Button color="warning" size="sm" block onClick={(e) => this.goToHome(e)}><FaHome /> Home</Button>
+                <Button color="primary" size="sm" block onClick={(e) => this.goToHome(e)}><FaHome /> Home</Button>
               </div>
             </div>
           </div>

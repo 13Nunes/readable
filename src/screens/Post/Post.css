@@ -1,12 +1,36 @@
 .post .actions{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
+.post .vote-score-container{
+  display: flex;
+  align-items: center;
+}
+.post .vote-score-container span{
+  cursor: pointer;
+}
+.post .vote-score-container .down{
+    color: red;
+}
+.post .vote-score-container .up{
+    color: green;
+}
 .post .actions button{
-    min-width: 80px;
+  min-width: 80px;
 }
 .post .actions button:last-child{
-    margin-left: 10px;
+  margin-left: 10px;
+}
+
+.post-item .toolbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.post .toolbar .publish-info,
+.post .toolbar .comment-count{
+  display: flex;
+  align-items: center;
 }

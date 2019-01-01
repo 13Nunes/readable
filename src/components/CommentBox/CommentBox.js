@@ -109,7 +109,7 @@ class CommentBox extends Component {
 
     return (
       <div className="comment-box">
-        <h3><FaRegComments /> Comments</h3>
+        <h3><FaRegComments />&nbsp;Comments</h3>
         <Form onSubmit={this.onFormSubmit}>
           <FormGroup tag="fieldset">
             <FormGroup>
@@ -126,7 +126,12 @@ class CommentBox extends Component {
         {comments.loading === false && comments.list.map(comment => (
           <div key={comment.id} className="comment">
             <span className="text-muted"><FaUser /> {comment.author === user.login ? user.name : comment.author} at {moment(comment.timestamp).format('MMMM Do YYYY')}</span> <br />
-            {comment.body}
+            {comment.editing === false && comment.body}
+            {comment.editing === true && (
+              <div>
+                FORM
+              </div>
+            )}
             <hr />
             <div className="comment-actions">
               <div className="vote-score-container">

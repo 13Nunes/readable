@@ -10,6 +10,9 @@ import { ListGroup, ListGroupItem } from 'reactstrap';
 // Icons
 import { FaCube } from 'react-icons/fa';
 
+// Styles
+import './Categories.css';
+
 // Store
 import { handleGetCategories } from '../../store/actions/categories';
 
@@ -36,7 +39,7 @@ class Categories extends Component {
 
     return (
       <div className="categories" >
-        <FaCube /> Categories < br /> <br />
+        <header><FaCube />&nbsp;Categories</header>
         <ListGroup>
           <ListGroupItem tag="a" href='/' active={selected === undefined} onClick={(e) => this.goToContent(e, '/')} key="all">ALL</ListGroupItem>
           {categories.list.map(category => (
