@@ -20,6 +20,10 @@ class Home extends Component {
     event.preventDefault();
     this.props.history.push('/new-post');
   }
+  goToHome(event) {
+    event.preventDefault();
+    this.props.history.push('/');
+  }
 
   render() {
     return (
@@ -27,7 +31,7 @@ class Home extends Component {
         <Header />
         <div className="container">
           <Breadcrumb tag="nav" listTag="div">
-            <BreadcrumbItem tag="a" href="/">Home</BreadcrumbItem>
+            <BreadcrumbItem tag="a" href="#" onClick={(e) => this.goToHome(e)}>Home</BreadcrumbItem>
           </Breadcrumb>
           <div className="content">
             <div className="row">
@@ -38,7 +42,7 @@ class Home extends Component {
                 <User />
                 <Categories />
                 <hr />
-                <Button color="warning" size="sm" block onClick={(e) => this.goToNewPost(e)}><FaPlusSquare /> New Post</Button>
+                <Button color="primary" size="sm" block onClick={(e) => this.goToNewPost(e)}><FaPlusSquare /> New Post</Button>
               </div>
             </div>
           </div>

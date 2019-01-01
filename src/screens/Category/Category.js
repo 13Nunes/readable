@@ -24,6 +24,10 @@ class Category extends Component {
     event.preventDefault();
     this.props.history.push('/new-post');
   }
+  goToHome(event) {
+    event.preventDefault();
+    this.props.history.push('/');
+  }
 
   render() {
     const { category, validCategory } = this.props;
@@ -34,7 +38,7 @@ class Category extends Component {
         <Header />
         <div className="container">
           <Breadcrumb tag="nav" listTag="div">
-            <BreadcrumbItem tag="a" href="/">Home</BreadcrumbItem>
+            <BreadcrumbItem tag="a" href="#" onClick={(e) => this.goToHome(e)}>Home</BreadcrumbItem>
             <BreadcrumbItem active>{categoryTitle}</BreadcrumbItem>
           </Breadcrumb>
           <div className="content">
@@ -52,7 +56,7 @@ class Category extends Component {
                 <User />
                 <Categories selected={category.name} />
                 <hr />
-                <Button color="warning" size="sm" block onClick={(e) => this.goToNewPost(e)}><FaPlusSquare /> New Post</Button>
+                <Button color="primary" size="sm" block onClick={(e) => this.goToNewPost(e)}><FaPlusSquare /> New Post</Button>
               </div>
             </div>
           </div>

@@ -1,0 +1,12 @@
+.post .actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post .actions button{
+    min-width: 80px;
+}
+.post .actions button:last-child{
+    margin-left: 10px;
+}

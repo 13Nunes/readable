@@ -1,7 +1,12 @@
-import { getPost, addPost, editPost, increaseVotes, decreaseVotes } from '../../services/ReadableAPI';
+import {
+  getPost, addPost, editPost, deletePost,
+  increaseVotes, decreaseVotes,
+} from '../../services/ReadableAPI';
+
 export const GET_POST = 'GET_POST';
 export const EDIT_POST = 'EDIT_POST';
 export const ADD_POST = 'ADD_POST';
+export const DELETE_POST = 'DELETE_POST';
 export const INCREASE_VOTE = 'INCREASE_VOTE';
 export const DECREASE_VOTE = 'DECREASE_VOTE';
 
@@ -72,6 +77,20 @@ export function handleDecreaseVote(post) {
   return dispatch => {
     return decreaseVotes(post.id).then(post => {
       dispatch(decreaseVoteAction(post));
+    });
+  };
+}
+//
+function deletePostAction(post) {
+  return {
+    type: DELETE_POST,
+    post,
+  };
+}
+export function handleDeletePost(postId) {
+  return dispatch => {
+    return deletePost(postId).then(post => {
+      dispatch(deletePostAction(post));
     });
   };
 }

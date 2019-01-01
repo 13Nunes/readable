@@ -5,14 +5,20 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 // UI
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import {
+  Form, FormGroup, Label, Input, Button,
+  Modal, ModalHeader, ModalBody, ModalFooter
+} from 'reactstrap';
 
 // Icons
 import {
   FaPaperPlane,
   FaUser,
   FaRegComments,
-  FaAngleDown, FaAngleUp
+  FaAngleDown, FaAngleUp,
+  FaEdit,
+  FaTimes,
+  FaCheck
 } from 'react-icons/fa';
 
 // Assets
@@ -23,13 +29,16 @@ import {
   handleGetPostComments,
   handleIncreaseCommentVotes,
   handleDecreaseCommentVotes,
-  handleAddComment
+  handleAddComment,
+  handleDeleteComment
 } from '../../store/actions/comments';
 
 class CommentBox extends Component {
   // @states
   state = {
-    comment: ''
+    comment: '',
+    selectedCommentId: null,
+    modalConfirmOpened: false
   }
 
   // @lifecycle
@@ -63,7 +72,7 @@ class CommentBox extends Component {
       id: Math.random().toString(36).substr(-8),
       timestamp: Date.now(),
       body: this.state.comment,
-      author: user.name,
+      author: user.login,
       parentId: this.props.postId
     }
 
@@ -81,9 +90,22 @@ class CommentBox extends Component {
   decreaseVotes(comment) {
     this.props.dispatch(handleDecreaseCommentVotes(comment));
   }
+  toggleModal = (commentId) => {
+    this.setState({
+      modalConfirmOpened: !this.state.modalConfirmOpened,
+      selectedCommentId: commentId
+    });
+  }
+  deleteComment() {
+    const { selectedCommentId } = this.state;
+    this.props.dispatch(handleDeleteComment(selectedCommentId));
+    this.toggleModal(null);
+  }
 
   render() {
     const { comments } = this.props;
+    let user = localStorage.getItem('user');
+    user = JSON.parse(user);
 
     return (
       <div className="comment-box">
@@ -103,16 +125,34 @@ class CommentBox extends Component {
         </Form>
         {comments.loading === false && comments.list.map(comment => (
           <div key={comment.id} className="comment">
-            <span className="text-muted"><FaUser /> {comment.author} at {moment(comment.timestamp).format('MMMM Do YYYY')}</span> <br />
+            <span className="text-muted"><FaUser /> {comment.author === user.login ? user.name : comment.author} at {moment(comment.timestamp).format('MMMM Do YYYY')}</span> <br />
             {comment.body}
             <hr />
-            <div className="vote-score-container">
-              <span onClick={() => this.decreaseVotes(comment)}><FaAngleDown /></span>
-              &nbsp;{comment.voteScore}&nbsp;
-            <span onClick={() => this.increaseVotes(comment)}><FaAngleUp /></span>
+            <div className="comment-actions">
+              <div className="vote-score-container">
+                <span onClick={() => this.decreaseVotes(comment)}><FaAngleDown /></span>
+                &nbsp;{comment.voteScore}&nbsp;
+                <span onClick={() => this.increaseVotes(comment)}><FaAngleUp /></span>
+              </div>
+              {comment.author === user.login && (
+                <div className="comment-buttons">
+                  <Button color="link"><FaEdit /> Edit</Button>
+                  <Button color="link" onClick={() => this.toggleModal(comment.id)}><FaTimes /> Delete</Button>
+                </div>
+              )}
             </div>
           </div>
         ))}
+        <Modal isOpen={this.state.modalConfirmOpened} toggle={this.toggleModal}>
+          <ModalHeader toggle={this.toggleModal}>Attention</ModalHeader>
+          <ModalBody>
+            Are you sure delete this comment ?
+          </ModalBody>
+          <ModalFooter>
+            <Button color="default" onClick={this.toggleModal}><FaTimes /> Cancel</Button>
+            <Button color="primary" onClick={() => this.deleteComment()}><FaCheck /> Confirm</Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }

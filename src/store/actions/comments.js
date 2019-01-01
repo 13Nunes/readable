@@ -2,13 +2,15 @@ import {
   getPostComments,
   increaseCommentVotes,
   decreaseCommentVotes,
-  addComment
+  addComment,
+  deleteComment
 } from '../../services/ReadableAPI';
 
 export const GET_POST_COMMENTS = 'GET_POST_COMMENTS';
 export const INCREASE_COMMENT_VOTES = 'INCREASE_COMMENT_VOTES';
 export const DECREASE_COMMENT_VOTES = 'DECREASE_COMMENT_VOTES';
 export const ADD_COMMENT = 'ADD_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
 
 //
 function getPostCommentsAction(comments) {
@@ -63,6 +65,20 @@ export function handleAddComment(commentData) {
   return dispatch => {
     return addComment(commentData).then(comment => {
       dispatch(addCommentAction(comment));
+    });
+  };
+}
+//
+function deleteCommentAction(comment) {
+  return {
+    type: DELETE_COMMENT,
+    comment,
+  };
+}
+export function handleDeleteComment(commentId) {
+  return dispatch => {
+    return deleteComment(commentId).then(comment => {
+      dispatch(deleteCommentAction(comment));
     });
   };
 }

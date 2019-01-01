@@ -41,13 +41,14 @@ class StorePost extends Component {
 
   render() {
     const { pageTitle, postId } = this.state;
+    const category = this.props.match.params.categoryName;
 
     return (
       <div className="store-post">
         <Header />
         <div className="container">
           <Breadcrumb tag="nav" listTag="div">
-            <BreadcrumbItem tag="a" href="/">Home</BreadcrumbItem>
+            <BreadcrumbItem tag="a" href="#" onClick={(e) => this.goToHome(e)}>Home</BreadcrumbItem>
             <BreadcrumbItem active>{pageTitle}</BreadcrumbItem>
           </Breadcrumb>
           <div className="content">
@@ -57,9 +58,9 @@ class StorePost extends Component {
               </div>
               <div className="col-sm-4">
                 <User />
-                <Categories />
+                <Categories selected={category} />
                 <hr />
-                <Button color="warning" size="sm" block onClick={(e) => this.goToHome(e)}><FaHome /> Home</Button>
+                <Button color="primary" size="sm" block onClick={(e) => this.goToHome(e)}><FaHome /> Home</Button>
               </div>
             </div>
           </div>

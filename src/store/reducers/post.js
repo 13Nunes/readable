@@ -1,4 +1,7 @@
-import { GET_POST, ADD_POST, EDIT_POST, INCREASE_VOTE, DECREASE_VOTE } from '../actions/post';
+import {
+  GET_POST, ADD_POST, EDIT_POST, DELETE_POST,
+  INCREASE_VOTE, DECREASE_VOTE
+} from '../actions/post';
 
 const initialState = {
   loading: true,
@@ -24,6 +27,12 @@ export default function (state = initialState, action) {
       }
     case INCREASE_VOTE:
     case DECREASE_VOTE:
+      return {
+        loading: false,
+        data: action.post
+      }
+
+    case DELETE_POST:
       return {
         loading: false,
         data: action.post

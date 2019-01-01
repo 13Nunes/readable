@@ -70,7 +70,7 @@ class PostForm extends Component {
         timestamp: Date.now(),
         title,
         body: content,
-        author: user.name,
+        author: user.login,
         category
       }
       this.props.dispatch(handleAddPost(postData));
@@ -92,11 +92,9 @@ class PostForm extends Component {
               <Input type="text" name="postTitle" id="postTitle" required onChange={e => this.handleInputChange('title', e.target.value)} value={this.state.title} />
             </FormGroup>
             <FormGroup>
-              <Label for="postCategory">Category {this.state.category}</Label>
+              <Label for="postCategory">Category</Label>
               <Input type="select" name="postCategory" id="postCategory" required onChange={e => this.handleInputChange('category', e.target.value)} value={this.state.category}>
-                {categories.loading === true && (
-                  <option value="">Loading...</option>
-                )}
+                <option value="">{categories.loading === true ? 'Loading...' : 'Select'}</option>
                 {categories.loading === false && categories.list.map(category => (
                   <option value={category.path} key={category.path}>
                     {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
@@ -110,7 +108,7 @@ class PostForm extends Component {
                 onChange={e => this.handleInputChange('content', e.target.value)} aria-multiline='true'
                 value={this.state.content} />
             </FormGroup>
-            <FormGroup check inline>
+            <FormGroup check inline className="float-right">
               <Button color="success"><FaSave /> Publish post</Button>
             </FormGroup>
           </FormGroup>

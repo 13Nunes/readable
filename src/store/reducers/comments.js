@@ -2,7 +2,8 @@ import {
   GET_POST_COMMENTS,
   INCREASE_COMMENT_VOTES,
   DECREASE_COMMENT_VOTES,
-  ADD_COMMENT
+  ADD_COMMENT,
+  DELETE_COMMENT
 } from '../actions/comments';
 
 const initialState = {
@@ -34,6 +35,14 @@ export default function (state = initialState, action) {
           ...state.list,
           action.comment
         ]
+      }
+
+    case DELETE_COMMENT:
+      return {
+        loading: false,
+        list: state.list.filter((e, i) => {
+          return e.id !== action.comment.id;
+        })
       }
 
     default:

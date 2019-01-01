@@ -24,11 +24,12 @@ class PostItem extends Component {
   goToContent(category, id) {
     this.props.history.push(`/${category}/${id}`);
   }
-
+  goToCategory(category) {
+    this.props.history.push(`/${category}`);
+  }
   increaseVotes(post) {
     this.props.dispatch(handleIncreaseVotes(post));
   }
-
   decreaseVotes(post) {
     this.props.dispatch(handleDecreaseVotes(post));
   }
@@ -45,14 +46,17 @@ class PostItem extends Component {
       id,
     } = this.props.post;
 
+    let user = localStorage.getItem('user');
+    user = JSON.parse(user);
+
     return (
       <Card className="post-item">
         <CardBody>
-          <CardTitle><Link to={`/${category}/${id}`}>{title}</Link> - <Badge href="#" color="light">{category}</Badge></CardTitle>
+          <CardTitle><Link to={`/${category}/${id}`}>{title}</Link> - <Badge href="#" color="light" onClick={() => this.goToCategory(category)}> {category}</Badge></CardTitle>
           <div className="toolbar">
             <div className="publish-info">
               <FaRegUserCircle />&nbsp;
-                {author}&nbsp;|&nbsp;{moment(timestamp).format('ddd, MMMM Do YYYY')}
+                {author === user.login ? user.name : author}&nbsp;|&nbsp;{moment(timestamp).format('ddd, MMMM Do YYYY')}
             </div>
 
             <div className="comment-count">

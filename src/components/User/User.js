@@ -17,7 +17,8 @@ import { handleSetUser } from '../../store/actions/user';
 class User extends Component {
   state = {
     modalOpened: false,
-    name: ''
+    name: '',
+    login: ''
   }
 
   // @hook
@@ -29,8 +30,9 @@ class User extends Component {
     if (user === null) {
       // Define initial user
       const defaultUser = {
-        'id': Math.random().toString(36).substr(-8),
-        'name': 'Udacity Student'
+        id: Math.random().toString(36).substr(-8),
+        name: 'Udacity Student',
+        login: 'udacityStudent'
       }
 
       // Save user on local Storage
@@ -44,7 +46,8 @@ class User extends Component {
     this.props.dispatch(handleSetUser(user));
 
     // Update input
-    this.handleChange(user.name);
+    this.handleInputChange('name', user.name);
+    this.handleInputChange('login', user.login);
   }
 
   // @methods
@@ -54,17 +57,18 @@ class User extends Component {
     });
   }
 
-  handleChange = (name) => {
+  handleInputChange = (field, value) => {
     this.setState({
-      name
+      [field]: value
     })
   }
 
   saveUserData = () => {
     // Prepare data
     const user = {
-      'id': this.props.user.id,
-      'name': this.state.name
+      id: this.props.user.id,
+      name: this.state.name,
+      login: this.state.login
     }
 
     // Save on redux store
@@ -89,8 +93,8 @@ class User extends Component {
           <ModalBody>
             <Form>
               <FormGroup>
-                <Label for="username">Name</Label>
-                <Input type="text" name="username" id="username" onChange={e => this.handleChange(e.target.value)} value={this.state.name} />
+                <Label for="name">Name</Label>
+                <Input type="text" name="name" id="name" onChange={e => this.handleInputChange('name', e.target.value)} value={this.state.name} />
               </FormGroup>
             </Form>
           </ModalBody>
