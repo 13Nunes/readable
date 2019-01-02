@@ -60,7 +60,7 @@ class StorePost extends Component {
                 <User />
                 <Categories selected={category} />
                 <hr />
-                <Button color="primary" size="sm" block onClick={(e) => this.goToHome(e)}><FaHome /> Home</Button>
+                <Button color="primary" size="sm" block onClick={(e) => this.goToHome(e)}><FaHome />&nbsp;Home</Button>
               </div>
             </div>
           </div>

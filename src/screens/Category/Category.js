@@ -56,7 +56,7 @@ class Category extends Component {
                 <User />
                 <Categories selected={category.name} />
                 <hr />
-                <Button color="primary" size="sm" block onClick={(e) => this.goToNewPost(e)}><FaPlusSquare /> New Post</Button>
+                <Button color="primary" size="sm" block onClick={(e) => this.goToNewPost(e)}><FaPlusSquare />&nbsp;New Post</Button>
               </div>
             </div>
           </div>
