@@ -14,14 +14,39 @@ import './User.css';
 // Store
 import { handleSetUser } from '../../store/actions/user';
 
+const templates = [
+  'cerulean',
+  'cosmo',
+  'cyborg',
+  'darkly',
+  'flatly',
+  'jornal',
+  'litera',
+  'lumen',
+  'lux',
+  'materia',
+  'minty',
+  'pulse',
+  'sandstone',
+  'simplex',
+  'sketchy',
+  'slate',
+  'solar',
+  'spacelab',
+  'superhero',
+  'united',
+  'yeti'
+];
+
 class User extends Component {
   state = {
     modalOpened: false,
     name: '',
-    login: ''
+    login: '',
+    template: 'cerulean'
   }
 
-  // @hook
+  // @lifecycle
   componentWillMount() {
     // Get user
     let user = localStorage.getItem('user') || null;
@@ -32,7 +57,8 @@ class User extends Component {
       const defaultUser = {
         id: Math.random().toString(36).substr(-8),
         name: 'Udacity Student',
-        login: 'udacityStudent'
+        login: 'udacityStudent',
+        template: 'cerulean'
       }
 
       // Save user on local Storage
@@ -46,8 +72,11 @@ class User extends Component {
     this.props.dispatch(handleSetUser(user));
 
     // Update input
-    this.handleInputChange('name', user.name);
-    this.handleInputChange('login', user.login);
+    this.setState({
+      name: user.name,
+      login: user.login,
+      template: user.template
+    })
   }
 
   // @methods
@@ -68,7 +97,8 @@ class User extends Component {
     const user = {
       id: this.props.user.id,
       name: this.state.name,
-      login: this.state.login
+      login: this.state.login,
+      template: this.state.template
     }
 
     // Save on redux store
@@ -76,6 +106,9 @@ class User extends Component {
 
     // Save user on local Storage
     localStorage.setItem('user', JSON.stringify(user));
+
+    // Change template
+    document.getElementById('theme').setAttribute('href', `${process.env.PUBLIC_URL}/themes/bootstrap.${user.template}.min.css?v=${Date.now()}`);
 
     // Close modal
     this.toggleModal();
@@ -95,6 +128,14 @@ class User extends Component {
               <FormGroup>
                 <Label for="name">Name</Label>
                 <Input type="text" name="name" id="name" onChange={e => this.handleInputChange('name', e.target.value)} value={this.state.name} />
+              </FormGroup>
+              <FormGroup>
+                <Label for="template">Template</Label>
+                <Input type="select" name="template" id="template" required onChange={e => this.handleInputChange('template', e.target.value)} value={this.state.template}>
+                  {templates.map(template => (
+                    <option value={template} key={template}>{template.toUpperCase()}</option>
+                  ))}
+                </Input>
               </FormGroup>
             </Form>
           </ModalBody>

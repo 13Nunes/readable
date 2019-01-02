@@ -5,8 +5,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 // Theme
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import './assets/themes/bootstrap.cerulean.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Styles
 import './App.css';
@@ -28,7 +27,30 @@ const store = createStore(reducers, middlewares);
 class App extends Component {
   // @lifecycle
   componentWillMount() {
-    console.log("Rodei")
+    // Get user
+    let user = localStorage.getItem('user') || null;
+    if (user !== null) {
+      user = JSON.parse(user)
+    } else {
+      // Define initial user
+      const defaultUser = {
+        id: Math.random().toString(36).substr(-8),
+        name: 'Udacity Student',
+        login: 'udacityStudent',
+        template: 'cerulean'
+      }
+
+      // Save user on local Storage
+      localStorage.setItem('user', JSON.stringify(defaultUser))
+    }
+
+    const head = document.getElementsByTagName('head')[0];
+    let link = document.createElement('link');
+    link.id = 'theme';
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = `./themes/bootstrap.${user.template}.min.css`;
+    head.appendChild(link);
   }
 
   render() {
