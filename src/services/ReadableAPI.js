@@ -130,3 +130,13 @@ export const deleteComment = (commentId) =>
     .then(res => res.json())
     .then(data => data)
     .catch(error => console.log(error))
+
+export const editComment = (commentData) =>
+  fetch(`${api}/comments/${commentData.id}`, {
+    headers,
+    method: 'PUT',
+    body: JSON.stringify(commentData)
+  })
+    .then(res => res.json())
+    .then(data => data)
+    .catch(error => console.log(error))

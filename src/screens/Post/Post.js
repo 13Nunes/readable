@@ -16,7 +16,7 @@ import {
   FaRegUserCircle,
   FaRegThumbsDown, FaRegThumbsUp,
   FaRegComments,
-  FaTrash,
+  FaTrashAlt,
   FaPencilAlt,
   FaTimes,
   FaCheck
@@ -87,8 +87,12 @@ class Post extends Component {
     user = JSON.parse(user);
 
     // Safe
-    if (post.loading === false && post.data.error) history.push('/page-not-found');
-    if (post.loading === false && post.data.error) return (<div>Redirecting...</div>);
+    if (post.loading === false && post.data && post.data.error) {
+      history.push('/page-not-found');
+      return (<div>Redirecting...</div>);
+    }
+
+    if (post.data === undefined) return (<div>Waiting...</div>)
 
     return (
       <div className="store-post">
@@ -127,8 +131,8 @@ class Post extends Component {
                       </div>
                       {post.data.author === user.login && (
                         <div className="buttons">
-                          <Button color="warning" size="sm" onClick={(e) => this.editPost(e)}><FaPencilAlt /> Edit</Button>
-                          <Button color="danger" size="sm" onClick={this.toggleModal}><FaTrash /> Delete</Button>
+                          <Button color="warning" size="sm" onClick={(e) => this.editPost(e)}><FaPencilAlt />&nbsp;Edit</Button>
+                          <Button color="danger" size="sm" onClick={this.toggleModal}><FaTrashAlt />&nbsp;Delete</Button>
                         </div>
                       )}
                     </div>
@@ -141,7 +145,7 @@ class Post extends Component {
                 <User />
                 <Categories selected={this.props.match.params.categoryName} />
                 <hr />
-                <Button color="primary" size="sm" block onClick={(e) => this.goToHome(e)}><FaHome /> Home</Button>
+                <Button color="primary" size="sm" block onClick={(e) => this.goToHome(e)}><FaHome />&nbsp;Home</Button>
               </div>
             </div>
           </div>

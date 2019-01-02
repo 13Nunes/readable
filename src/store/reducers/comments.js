@@ -3,7 +3,9 @@ import {
   INCREASE_COMMENT_VOTES,
   DECREASE_COMMENT_VOTES,
   ADD_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  TOGGLE_EDIT_MODE_COMMENT,
+  EDIT_COMMENT
 } from '../actions/comments';
 
 const initialState = {
@@ -19,7 +21,7 @@ export default function (state = initialState, action) {
         list: action.comments.map((e, i) => {
           return {
             ...e,
-            [i]: e.editing = false
+            editing: false
           }
         })
       }
@@ -38,7 +40,10 @@ export default function (state = initialState, action) {
         loading: false,
         list: [
           ...state.list,
-          action.comment
+          {
+            ...action.comment,
+            editing: false
+          }
         ]
       }
 
@@ -48,6 +53,37 @@ export default function (state = initialState, action) {
         list: state.list.filter((e, i) => {
           return e.id !== action.comment.id;
         })
+      }
+
+    case TOGGLE_EDIT_MODE_COMMENT:
+      return {
+        loading: false,
+        list: state.list.map((e, i) => {
+          return e.id === action.comment.id ?
+            {
+              ...action.comment,
+              editing: !action.comment.editing
+            } :
+            {
+              ...e,
+              editing: false
+            }
+        })
+      }
+
+    case EDIT_COMMENT:
+      return {
+        loading: false,
+        list: state.list
+          .map((e, i) => {
+            return e.id === action.comment.id ? action.comment : e;
+          })
+          .map((e, i) => {
+            return {
+              ...e,
+              editing: false
+            }
+          })
       }
 
     default:

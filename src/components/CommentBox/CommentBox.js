@@ -18,7 +18,10 @@ import {
   FaAngleDown, FaAngleUp,
   FaEdit,
   FaTimes,
-  FaCheck
+  FaCheck,
+  FaRegSave,
+  FaBan,
+  FaRegTrashAlt
 } from 'react-icons/fa';
 
 // Assets
@@ -30,14 +33,17 @@ import {
   handleIncreaseCommentVotes,
   handleDecreaseCommentVotes,
   handleAddComment,
-  handleDeleteComment
+  handleDeleteComment,
+  handleToggleEditModeComment,
+  handleEditComment
 } from '../../store/actions/comments';
 
 class CommentBox extends Component {
   // @states
   state = {
     comment: '',
-    selectedCommentId: null,
+    selectedComment: null,
+    editedComment: '',
     modalConfirmOpened: false
   }
 
@@ -73,7 +79,8 @@ class CommentBox extends Component {
       timestamp: Date.now(),
       body: this.state.comment,
       author: user.login,
-      parentId: this.props.postId
+      parentId: this.props.postId,
+      editing: false
     }
 
     // New comment
@@ -90,16 +97,41 @@ class CommentBox extends Component {
   decreaseVotes(comment) {
     this.props.dispatch(handleDecreaseCommentVotes(comment));
   }
-  toggleModal = (commentId) => {
+  toggleModal = (comment = null) => {
     this.setState({
       modalConfirmOpened: !this.state.modalConfirmOpened,
-      selectedCommentId: commentId
+      selectedComment: comment
     });
   }
   deleteComment() {
-    const { selectedCommentId } = this.state;
-    this.props.dispatch(handleDeleteComment(selectedCommentId));
+    const { selectedComment } = this.state;
+    this.props.dispatch(handleDeleteComment(selectedComment.id));
     this.toggleModal(null);
+  }
+  enableEditModeComment(comment) {
+    this.setState({
+      editedComment: comment.body
+    })
+    this.toggleEditMode(comment);
+  }
+  toggleEditMode(comment) {
+    this.props.dispatch(handleToggleEditModeComment(comment));
+  }
+  editComment(comment) {
+    // Prepare comment data
+    const commentData = {
+      id: comment.id,
+      timestamp: Date.now(),
+      body: this.state.editedComment
+    }
+
+    // Edit comment
+    this.props.dispatch(handleEditComment(commentData));
+
+    // Clear comment form
+    this.setState({
+      editedComment: ''
+    });
   }
 
   render() {
@@ -119,17 +151,28 @@ class CommentBox extends Component {
                 value={this.state.comment} />
             </FormGroup>
             <FormGroup check className="float-right">
-              <Button color="success"><FaPaperPlane /> Comment</Button>
+              <Button color="success"><FaPaperPlane />&nbsp;Comment</Button>
             </FormGroup>
           </FormGroup>
         </Form>
         {comments.loading === false && comments.list.map(comment => (
           <div key={comment.id} className="comment">
             <span className="text-muted"><FaUser /> {comment.author === user.login ? user.name : comment.author} at {moment(comment.timestamp).format('MMMM Do YYYY')}</span> <br />
-            {comment.editing === false && comment.body}
-            {comment.editing === true && (
-              <div>
-                FORM
+            {comment.editing === false ? comment.body : (
+              <div><br />
+                <Form>
+                  <FormGroup tag="fieldset">
+                    <FormGroup>
+                      <Input type='textarea' maxLength='500' required name='editedComment' id='editedComment' rows={4}
+                        onChange={e => this.handleInputChange('editedComment', e.target.value)} aria-multiline='true'
+                        value={this.state.editedComment} />
+                    </FormGroup>
+                    <FormGroup check className="float-right">
+                      <Button color="link" onClick={() => this.toggleEditMode(comment)}><FaBan />&nbsp;Cancel</Button>
+                      <Button color="success" onClick={() => this.editComment(comment)}><FaRegSave />&nbsp;Edit comment</Button>
+                    </FormGroup>
+                  </FormGroup>
+                </Form>
               </div>
             )}
             <hr />
@@ -141,8 +184,10 @@ class CommentBox extends Component {
               </div>
               {comment.author === user.login && (
                 <div className="comment-buttons">
-                  <Button color="link"><FaEdit /> Edit</Button>
-                  <Button color="link" onClick={() => this.toggleModal(comment.id)}><FaTimes /> Delete</Button>
+                  {comment.editing === false && (
+                    <Button color="link" onClick={() => this.enableEditModeComment(comment)}><FaEdit />&nbsp;Edit</Button>
+                  )}
+                  <Button color="link" onClick={() => this.toggleModal(comment)}><FaRegTrashAlt />&nbsp;Delete</Button>
                 </div>
               )}
             </div>

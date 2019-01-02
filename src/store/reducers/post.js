@@ -3,6 +3,11 @@ import {
   INCREASE_VOTE, DECREASE_VOTE
 } from '../actions/post';
 
+import {
+  ADD_COMMENT,
+  DELETE_COMMENT
+} from '../actions/comments';
+
 const initialState = {
   loading: true,
   post: {}
@@ -36,6 +41,24 @@ export default function (state = initialState, action) {
       return {
         loading: false,
         data: action.post
+      }
+
+    case ADD_COMMENT:
+      return {
+        loading: false,
+        data: {
+          ...state.data,
+          commentCount: ++state.data.commentCount
+        }
+      }
+
+    case DELETE_COMMENT:
+      return {
+        loading: false,
+        data: {
+          ...state.data,
+          commentCount: --state.data.commentCount
+        }
       }
 
     default:
