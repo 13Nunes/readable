@@ -19,10 +19,11 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
+    "setup": "cd .\\api-server\\ && yarn install && cd .. && yarn install",
+    "server": "node .\\api-server\\server",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
