@@ -87,7 +87,8 @@ class Post extends Component {
     user = JSON.parse(user);
 
     // Safe
-    if (post.loading === false && post.data && post.data.error) {
+    if (post.loading === false && (Object.keys(post.data).length === 0 || typeof post.data.error !== 'undefined')
+    ) {
       history.push('/page-not-found');
       return (<div>Redirecting...</div>);
     }

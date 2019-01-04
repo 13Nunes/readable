@@ -1,5 +1,6 @@
 // Basic
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 
@@ -45,42 +46,42 @@ class PostList extends Component {
   // @methods
   sortPostsByDate() {
     const { sortOrder, search } = this.state;
-    const { category } = this.props;
+    const { category, handleGetPosts } = this.props;
     this.setState({
       sortType: 'DATE'
     });
-    this.props.dispatch(handleGetPosts('DATE', sortOrder, search, category));
+    handleGetPosts('DATE', sortOrder, search, category);
   }
   sortPostsByVotes() {
     const { sortOrder, search } = this.state;
-    const { category } = this.props;
+    const { category, handleGetPosts } = this.props;
     this.setState({
       sortType: 'VOTES'
     });
-    this.props.dispatch(handleGetPosts('VOTES', sortOrder, search, category));
+    handleGetPosts('VOTES', sortOrder, search, category);
   }
   toggleSortOrder() {
     const { sortType, search } = this.state;
-    const { category } = this.props;
+    const { category, handleGetPosts } = this.props;
     const sortOrder = this.state.sortOrder === 'ASC' ? 'DESC' : 'ASC';
     this.setState({
       sortOrder
     });
-    this.props.dispatch(handleGetPosts(sortType, sortOrder, search, category));
+    handleGetPosts(sortType, sortOrder, search, category);
   }
   handleSearchChange(event) {
     const { sortType, sortOrder } = this.state;
-    const { category } = this.props;
+    const { category, handleGetPosts } = this.props;
     const search = event.target.value;
     this.setState({
       search
     });
-    this.props.dispatch(handleGetPosts(sortType, sortOrder, search, category));
+    handleGetPosts(sortType, sortOrder, search, category);
   }
   loadPostList() {
     const { sortType, sortOrder, search } = this.state;
-    const { category } = this.props;
-    this.props.dispatch(handleGetPosts(sortType, sortOrder, search, category));
+    const { category, handleGetPosts } = this.props;
+    handleGetPosts(sortType, sortOrder, search, category);
   }
 
   render() {
@@ -128,4 +129,5 @@ function mapStateToProps({ posts }, props) {
     posts,
   };
 }
-export default connect(mapStateToProps)(PostList);
+const mapDispatchToProps = dispatch => bindActionCreators({ handleGetPosts }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);

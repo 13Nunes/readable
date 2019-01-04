@@ -33,7 +33,7 @@ class App extends Component {
       user = JSON.parse(user)
     } else {
       // Define initial user
-      const defaultUser = {
+      user = {
         id: Math.random().toString(36).substr(-8),
         name: 'Udacity Student',
         login: 'udacityStudent',
@@ -41,7 +41,7 @@ class App extends Component {
       }
 
       // Save user on local Storage
-      localStorage.setItem('user', JSON.stringify(defaultUser))
+      localStorage.setItem('user', JSON.stringify(user))
     }
 
     const head = document.getElementsByTagName('head')[0];

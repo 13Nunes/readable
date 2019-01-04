@@ -30,9 +30,16 @@ export default function (state = initialState, action) {
     case DECREASE_COMMENT_VOTES:
       return {
         loading: false,
-        list: state.list.map((e, i) => {
-          return e.id === action.comment.id ? action.comment : e;
-        })
+        list: state.list
+          .map((e, i) => {
+            return e.id === action.comment.id ? action.comment : e;
+          })
+          .map((e, i) => {
+            return {
+              ...e,
+              editing: false
+            }
+          })
       }
 
     case ADD_COMMENT:

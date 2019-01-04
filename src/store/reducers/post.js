@@ -48,7 +48,7 @@ export default function (state = initialState, action) {
         loading: false,
         data: {
           ...state.data,
-          commentCount: ++state.data.commentCount
+          commentCount: state.data.commentCount + 1
         }
       }
 
@@ -57,7 +57,7 @@ export default function (state = initialState, action) {
         loading: false,
         data: {
           ...state.data,
-          commentCount: --state.data.commentCount
+          commentCount: state.data.commentCount - 1
         }
       }
 
