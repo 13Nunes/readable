@@ -18,6 +18,9 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
   },
+  "devDependencies": {
+    "webpack-dev-server": "^3.9.0"
+  },
   "scripts": {
     "setup": "cd .\\api-server\\ && yarn install && cd .. && yarn install",
     "server": "node .\\api-server\\server",
