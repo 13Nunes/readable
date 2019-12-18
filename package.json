@@ -16,7 +16,8 @@
     "react-scripts": "2.1.1",
     "reactstrap": "^6.5.0",
     "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "serialize-javascript": "^2.1.2"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.9.0"
